@@ -3,25 +3,23 @@ class Solution
 public:
     int lengthOfLongestSubstring(string s)
     {
+        int max_length = 0;
         unordered_set<char> hash;
-
-        int i = 0, j = 0, max_len = 0;
-
-        while (j < s.size())
+        int i = 0, j = 0;
+        while (j < s.length())
         {
-            if (hash.find(s.at(j)) == hash.end())
+            if (hash.find(s[j]) == hash.end())
             {
-                hash.insert(s.at(j));
-                max_len = max(max_len, j - i + 1);
+                hash.insert(s[j]);
+                max_length = max(max_length, j - i + 1);
                 j++;
             }
             else
             {
-                hash.erase(s.at(i));
+                hash.erase(s[i]);
                 i++;
             }
         }
-
-        return max_len;
+        return max_length;
     }
 };
