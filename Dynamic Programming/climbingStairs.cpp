@@ -27,3 +27,31 @@ public:
         return second;
     }
 };
+
+class Solution {
+public:
+    vector<int> dp;
+    
+    int solve(int& A, int pos)
+    {   
+        if(pos == 0)
+            return 1;
+        
+        if(pos < 0)
+            return 0;
+        
+        if(dp[pos] != -1)
+            return dp[pos];
+        
+        return dp[pos] = solve(A, pos - 1) + solve(A, pos - 2);
+    }
+    
+    int climbStairs(int A) {
+    
+        dp.clear();
+        dp.resize(A+1,-1);
+        
+        return solve(A, A);
+    }
+};
+
