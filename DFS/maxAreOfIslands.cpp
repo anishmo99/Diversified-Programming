@@ -1,3 +1,5 @@
+// DFS
+
 class Solution
 {
 public:
@@ -26,6 +28,49 @@ public:
             }
         }
 
+        return ans;
+    }
+};
+
+// BFS
+
+class Solution {
+public:
+    int bfs(int i, int j, vector<vector<int>>& grid){
+        int count = 1;
+        grid[i][j] = 2; // visited
+        int dir[5] = {-1, 0, 1, 0, -1};
+        queue<pair<int, int>> q;
+        q.push({i, j});
+        
+        while(!q.empty()){
+            auto temp = q.front();
+            q.pop();
+            int x = temp.first, y = temp.second;
+            
+            for(int i = 0; i < 4; i++){
+                int newx = x + dir[i];
+                int newy = y + dir[i + 1];
+                
+                if(newx >= 0 and newx < grid.size() and newy >= 0 and newy < grid[0].size() and grid[newx][newy] == 1){
+                    grid[newx][newy] = 2;
+                    count++;
+                    q.push({newx, newy});
+                }
+            }
+        }
+        return count;
+    }
+    
+    int maxAreaOfIsland(vector<vector<int>>& grid) {
+        int ans = 0;
+        for(int i = 0; i < grid.size(); i++){
+            for(int j = 0; j < grid[0].size(); j++){
+                if(grid[i][j] == 1)
+                    ans = max(ans, bfs(i, j, grid));
+            }
+        }
+        
         return ans;
     }
 };
